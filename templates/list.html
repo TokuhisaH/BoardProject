@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block customcss %}
+{% endblock customcss %}
+
+{% block header %}
+<div class="alert alert-info" role="alert">
+  SUPER SNS
+</div>
+{% endblock header %}
+
+{% block content %}
+<div class ='container'>
+{% for item in object_list %}
+  <div class="alert alert-success" role="alert">
+  <!-- item.pkで各投稿ののpkが取れる -->
+    <p>タイトル：<a href="{% url 'detail' item.pk%}">{{item.title}}</a></p>
+    <p>投稿者:{{item.auther}}</p>
+    <button type="button" class="btn btn-primary">いいんじゃね {{item.good}}</button>
+    <button type="button" class="btn btn-warning">見ました {{item.read}}人</button>
+  </div>
+  {% endfor %}
+  <a href="{% url 'logout' %}">ログアウト</a>
+</div>
+{% endblock content %}

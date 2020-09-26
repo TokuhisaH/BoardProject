@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+<!-- CSSを読み込む。static fileがある場所をdjangoに教える -->
+{% load static %}
+
+{% block customcss%}
+<link rel='stylesheet' type='text/css' href= "{% static 'style.css' %}">
+{% endblock customcss%}
+
+{% block content %}
+<!--bootstrapのExamplesからもってこれる。基本bodyタグより下からでいいらしい-->
+<!--formは何も指定しないとgetになるのでmethodをpostに指定するようにする -->
+<!-- actionを空で指定することで、一度このページに返ってくるように促したあとに
+views.pyで指定した画面に遷移することができる-->
+<form class="form-signin" method="POST" action="">{% csrf_token %}
+  <img class="mb-4" src="/docs/4.5/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+  <h1 class="h3 mb-3 font-weight-normal">Please sign up</h1>
+  <!--errorがあった場合の処理 -->
+  {% if error %}
+  {{  error }}
+  {% endif   %}
+  <label for="inputEmail" class="sr-only">Email address</label>
+  <!--nameを指定することでdjango側のモデルと関連付けられる -->
+  <input type="text" id="inputEmail" class="form-control" name="username" placeholder="Username" required autofocus>
+  <label for="inputPassword" class="sr-only">Password</label>
+  <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required>
+  <div class="checkbox mb-3">
+  </div>
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+  <p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
+</form>
+{% endblock content %}

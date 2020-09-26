@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- ユーザーがログインしているか -->
+{% if user.is_authenticated %}
+
+<!-- 画像をアップロードするためにenctypeが必要
+複数のデータをフォームで送るときに使う
+画像を送るときはほぼ必須
+
+csrf_tokenも忘れずに
+-->
+<form action ="" method ="POST" enctype="multipart/form-data">{% csrf_token %}
+<!-- {{form.as_p}}はautherも指定できてなりすましができてしまうためNG -->
+<p>タイトル：<input type ="text" name='title'></p>
+<p>内容：<input type ="text" name='content'></p>
+<p>画像：<input type ="file" name='images'></p>
+<!-- autherはtype=hiddenにして設定させないようにする。名前はdjangoの中から持ってこれる-->
+<input type='hidden' name ='auther' value='{{user.username}}'>
+
+<input type ="submit" value="作成する">
+</form>
+
+{% else %}
+ログインしてください
+{% endif %}
+{% endblock content %}
